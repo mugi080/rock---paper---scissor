@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock paper scissor</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #484b47;
+            font-family: 'Courier New', Courier, monospace;
+            color: rgb(208, 208, 208);
+        }
+
+        .game-container {
+            text-align: center;
+            background: #221f1f;
+            padding: 20px;
+            border-radius: 20px;
+            
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .choice {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .choice:hover {
+            transform: scale(1.1);
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        #user-choice, #computer-choice, #result {
+            margin: 10px 0;
+            font-size: 20px;
+            }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <img src="rock.jpg" alt="Rock" class="choice" id="rock">
+            <img src="paper.jpg" alt="Paper" class="choice" id="paper">
+            <img src="scissors.jpg" alt="Scissors" class="choice" id="scissors">
+        </div>
+        <div class="results">
+            <div id="user-choice">Player choice: <span>-</span></div>
+            <div id="computer-choice">Computer choice: <span>-</span></div>
+            <div id="result">Result: <span>-</span></div>
+        </div>
+
+
+
+    <script>
+        const choices = {
+            rock: 'rock',
+            paper: 'paper',
+            scissors: 'scissor'
+        };
+
+        const buttons = document.querySelectorAll('.choice');
+        const userChoiceElement = document.getElementById('user-choice').querySelector('span');
+        const computerChoiceElement = document.getElementById('computer-choice').querySelector('span');
+        const resultElement = document.getElementById('result').querySelector('span');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+            const userChoice = button.id;
+            const computerChoice = getComputerChoice();
+        
+            userChoiceElement.textContent = choices[userChoice];
+            computerChoiceElement.textContent = choices[computerChoice];
+            resultElement.textContent = getResult(userChoice, computerChoice);
+            });
+        });
+
+        function getComputerChoice() {
+            const keys = Object.keys(choices);
+            return keys[Math.floor(Math.random() * keys.length)];
+        }
+
+        function getResult(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return "It's a tie!";
+            } else if ((userChoice === 'rock' && computerChoice === 'scissors') ||
+                    (userChoice === 'paper' && computerChoice === 'rock') ||
+                    (userChoice === 'scissors' && computerChoice === 'paper')) {
+                return "You win!";
+            } else {
+                return "You lose!";
+            }
+        }
+    </script>
+</body>
+</html>
